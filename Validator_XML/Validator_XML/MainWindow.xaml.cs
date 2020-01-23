@@ -141,7 +141,7 @@ namespace Validator_XML
 
                         foreach (var groupItem in grouped)
                         {
-                            textLog.Text += groupItem.First().ToString() + "\n";
+                            textLog.Text += groupItem.First().Parent.ToString() + "\n";
                         }
                         if (grouped.Count() == 0)
                         {
