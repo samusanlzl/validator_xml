@@ -1,0 +1,17 @@
+C:\Users\slopez\source\repos\Validator_XML\Validator_XML\bin\Debug\netcoreapp3.1\Validator_XML.exe
+C:\Users\slopez\source\repos\Validator_XML\Validator_XML\bin\Debug\netcoreapp3.1\Validator_XML.deps.json
+C:\Users\slopez\source\repos\Validator_XML\Validator_XML\bin\Debug\netcoreapp3.1\Validator_XML.runtimeconfig.json
+C:\Users\slopez\source\repos\Validator_XML\Validator_XML\bin\Debug\netcoreapp3.1\Validator_XML.runtimeconfig.dev.json
+C:\Users\slopez\source\repos\Validator_XML\Validator_XML\bin\Debug\netcoreapp3.1\Validator_XML.dll
+C:\Users\slopez\source\repos\Validator_XML\Validator_XML\bin\Debug\netcoreapp3.1\Validator_XML.pdb
+C:\Users\slopez\source\repos\Validator_XML\Validator_XML\obj\Debug\netcoreapp3.1\Validator_XML.csprojAssemblyReference.cache
+C:\Users\slopez\source\repos\Validator_XML\Validator_XML\obj\Debug\netcoreapp3.1\MainWindow.g.cs
+C:\Users\slopez\source\repos\Validator_XML\Validator_XML\obj\Debug\netcoreapp3.1\App.g.cs
+C:\Users\slopez\source\repos\Validator_XML\Validator_XML\obj\Debug\netcoreapp3.1\Validator_XML_MarkupCompile.cache
+C:\Users\slopez\source\repos\Validator_XML\Validator_XML\obj\Debug\netcoreapp3.1\Validator_XML_MarkupCompile.lref
+C:\Users\slopez\source\repos\Validator_XML\Validator_XML\obj\Debug\netcoreapp3.1\MainWindow.baml
+C:\Users\slopez\source\repos\Validator_XML\Validator_XML\obj\Debug\netcoreapp3.1\Validator_XML.g.resources
+C:\Users\slopez\source\repos\Validator_XML\Validator_XML\obj\Debug\netcoreapp3.1\Validator_XML.AssemblyInfoInputs.cache
+C:\Users\slopez\source\repos\Validator_XML\Validator_XML\obj\Debug\netcoreapp3.1\Validator_XML.AssemblyInfo.cs
+C:\Users\slopez\source\repos\Validator_XML\Validator_XML\obj\Debug\netcoreapp3.1\Validator_XML.dll
+C:\Users\slopez\source\repos\Validator_XML\Validator_XML\obj\Debug\netcoreapp3.1\Validator_XML.pdb
