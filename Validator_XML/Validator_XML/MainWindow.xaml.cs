@@ -43,8 +43,8 @@ namespace Validator_XML
         static bool validation = false;
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            string[] xml_files = Directory.GetFiles(textXML.Text, "*.xml");
-            string[] xsd_files = Directory.GetFiles(textXSD.Text, "*.xsd");
+            string[] xml_files = Directory.GetFiles(textXML.Text, "*.xml", SearchOption.AllDirectories);
+            string[] xsd_files = Directory.GetFiles(textXSD.Text, "*.xsd", SearchOption.AllDirectories);
             if (xml_files.Length == 0 || xsd_files.Length == 0)
             {
                 if (xml_files.Length == 0)
@@ -69,6 +69,10 @@ namespace Validator_XML
                     foreach (string xml_path in xml_files)
                     {
                         xml_filename = Path.GetFileNameWithoutExtension(xml_path);
+                        if (xml_filename.Contains("000000"))
+                        {
+
+                        }
                         xml_xsd_files.Add(xml_filename, new Tuple<string, string>(xml_path, ""));
                     }
                     foreach (string xsd_path in xsd_files)
@@ -115,7 +119,51 @@ namespace Validator_XML
                 textRep.Text = dialog.FileName;
             }
         }
+        private bool Drop_No_Duplicated(string key_name, string path_file, string output_file)
+        {
+            XmlReader rd = XmlReader.Create(path_file);
+            XDocument doc;
+            try
+            {
+                doc = XDocument.Load(rd);
 
+                textLog.Text = "Buscando valores repetidos para el campo: " + key_name + "\n";
+                var grouped_duplicates = doc.Descendants(key_name).GroupBy(x => x.Value).Where(g => g.Count() > 1);
+                var grouped = doc.Descendants(key_name).GroupBy(x => x.Value).Where(g => g.Count() <= 1);
+                textLog.Text += "Búsqueda terminada\n";
+                textLog.Text += "Número de valores repetidos: " + grouped_duplicates.Count() + "\n";
+                if (grouped_duplicates.Count() >= 1)
+                {
+                    foreach (var groupItem in grouped)
+                    {
+                        foreach (var item in groupItem)
+                        {
+                            item.Parent.Remove();
+                        }
+                    }
+                }
+                else
+                {
+                    textLog.Text += "Todo correcto, no hay valores repetidos para el campo: " + key_name + "\n";
+                }
+                foreach (XElement element in doc.Elements())
+                {
+                    foreach (XElement child in element.Elements().ToList())
+                    {
+                        textLog.Text += "Resultado: " + child.ToString() + "\n";
+                    }
+                }
+                doc.Save(output_file);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                textLog.Text += "Seleccione un archivo compatible, el archivo " + Path.GetFileName(textRep.Text) + " no es compatible.\n";
+                textLog.Text += "Error: " + ex.Message + "\n";
+                return false;
+            }
+        }
+        
         private void Button_Click_Find_Rep(object sender, RoutedEventArgs e)
         {
             var watch = System.Diagnostics.Stopwatch.StartNew();
@@ -129,30 +177,10 @@ namespace Validator_XML
                 }
                 else
                 {
-                    XmlReader rd = XmlReader.Create(path_file);
-                    try
+                    string output_file = "C:/Users/slopez/Documents/archivo.xml";
+                    if (Drop_No_Duplicated(key_name, path_file, output_file))
                     {
-                        XDocument doc = XDocument.Load(rd);
-                        
-                        textLog.Text = "Buscando valores repetidos para el campo: " + key_name + "\n";
-                        var grouped = doc.Descendants(key_name).GroupBy(x => x.Value).Where(g => g.Count() > 1);
-                        textLog.Text += "Búsqueda terminada\n";
-                        textLog.Text += "Número de valores repetidos: " + grouped.Count() + "\n";
-
-                        foreach (var groupItem in grouped)
-                        {
-                            textLog.Text += groupItem.First().ToString() + "\n";
-                        }
-                        if (grouped.Count() == 0)
-                        {
-                            textLog.Text += "Todo correcto, no hay valores repetidos para el campo: " + key_name + "\n";
-                        }
-                        
-                    }
-                    catch (Exception ex)
-                    {
-                        textLog.Text = "Seleccione un archivo compatible, el archivo " + Path.GetFileName(textRep.Text) + " no es compatible.\n";
-                        textLog.Text += "Error: " + ex.Message + "\n";
+                        textLog.Text +="Se han eliminado las filas no repetidas\n";
                     }
                 }
             }
