@@ -1,26 +1,21 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\slopez\\source\\repos\\Validator_XML\\Validator_XML\\Validator_XML.csproj": {}
+    "C:\\Users\\mjurena\\Desktop\\validator_xml-master\\validator_xml\\Validator_XML\\Validator_XML\\Validator_XML.csproj": {}
   },
   "projects": {
-    "C:\\Users\\slopez\\source\\repos\\Validator_XML\\Validator_XML\\Validator_XML.csproj": {
+    "C:\\Users\\mjurena\\Desktop\\validator_xml-master\\validator_xml\\Validator_XML\\Validator_XML\\Validator_XML.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\slopez\\source\\repos\\Validator_XML\\Validator_XML\\Validator_XML.csproj",
+        "projectUniqueName": "C:\\Users\\mjurena\\Desktop\\validator_xml-master\\validator_xml\\Validator_XML\\Validator_XML\\Validator_XML.csproj",
         "projectName": "Validator_XML",
-        "projectPath": "C:\\Users\\slopez\\source\\repos\\Validator_XML\\Validator_XML\\Validator_XML.csproj",
-        "packagesPath": "C:\\Users\\slopez\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\slopez\\source\\repos\\Validator_XML\\Validator_XML\\obj\\",
+        "projectPath": "C:\\Users\\mjurena\\Desktop\\validator_xml-master\\validator_xml\\Validator_XML\\Validator_XML\\Validator_XML.csproj",
+        "packagesPath": "C:\\Users\\mjurena\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\mjurena\\Desktop\\validator_xml-master\\validator_xml\\Validator_XML\\Validator_XML\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\slopez\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\mjurena\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.0"
