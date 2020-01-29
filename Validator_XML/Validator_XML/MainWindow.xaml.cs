@@ -57,7 +57,7 @@ namespace Validator_XML
                 textLog.Text += "la carpeta de ficheros XSD no se ha seleccionado\n";
                 return;
             }
-            //Obtenemos los archivos xml y xsd de todos los directorios incluidos en los path almacenados en textXML.Text y textXSD.Text
+            //Obtenemos los path de los archivos xml y xsd de todos los directorios incluidos en los path almacenados en textXML.Text y textXSD.Text
             string[] xml_files = Directory.GetFiles(textXML.Text, "*.xml", SearchOption.AllDirectories);
             string[] xsd_files = Directory.GetFiles(textXSD.Text, "*.xsd", SearchOption.AllDirectories);
             if (xml_files.Length == 0)
@@ -72,15 +72,18 @@ namespace Validator_XML
                 textLog.Text += "la carpeta " + textXSD.Text + " no tiene ficheros XSD.\n";
                 return;
             }
-            string xml_filename, xml_filename_without_digits;
-            var pair = new { xml = "xml", xsd = "xsd" };
-            textLog.Text = "";
+            
+            // Creamos un diccionario que utilizará como clave el nombre del fichero xsd sin la extensión,
+            //   y como valor un array de strings que contienen el path del xsd en la primera posición 
+            //   y el path de los xml a validar con ese xsd en el resto de item de la lista
             var xml_xsd_files = xsd_files.ToDictionary(x => Path.GetFileNameWithoutExtension(x), x => new List<string>(){x});
+            string xml_filename, xml_filename_without_digits;
+            textLog.Text = ""; // Vaciamos el log
             foreach (string xml_path in xml_files)
             {
                 xml_filename = Path.GetFileNameWithoutExtension(xml_path);
-                xml_filename_without_digits = "";
-                // Comprobamos si el nombre del xml tiene digitos
+                
+                // Comprobamos si el nombre del archivo xml tiene digitos
                 if (xml_filename.Any(char.IsDigit)){
                     // Quitamos los digitos del nombre del xml para emparejarlo con su xsd correspondiente
                     xml_filename_without_digits = Regex.Replace(xml_filename, @"[\d-]", string.Empty);
@@ -89,46 +92,52 @@ namespace Validator_XML
                     //int index_of_number = xml_filename.IndexOfAny(numbers);
                     //textLog.Text += "index es " + index_of_number + "  xml_filename: "+ xml_filename.Substring(0,index_of_number)+ "\n";
                 }
-                // Si el diccionario tiene una key (xsd) con el mismo nombre que el xml (xml_filename_without_digits) entonces podemos añadir el xml
-                if (xml_filename_without_digits.Length>1 && xml_xsd_files.ContainsKey(xml_filename_without_digits))
+                else
+                {
+                    xml_filename_without_digits = xml_filename;
+                }
+                // Si el diccionario (xml_xsd_files) tiene una key (las keys son los nombres de los archivos xsd sin extensión) con el mismo nombre que 
+                //  el archivo xml (xml_filename_without_digits) entonces entendemos que podemos incluir el xml para validarlo
+                if (xml_xsd_files.ContainsKey(xml_filename_without_digits))
                 {
                     xml_xsd_files[xml_filename_without_digits].Add(xml_path);
-                    textLog.Text += "Archivo xml añadido para ser validado: " + xml_filename + "\n";
+                    textLog.Text += "Archivo xml añadido para ser validado: " + xml_filename + ".xml\n";
                 }
                 else
                 {
                     textLog.Text += "El archivo: " + xml_filename_without_digits + " ("+ xml_filename + ") no tiene un archivo xsd con el mismo nombre para ser validado.\n";
                 }
             }
-
+            textLog.Text += "\n";
             string xsd_path;
+            // Recorremos el diccionario (xml_xsd_files) para ir validando los xml que hemos añadido
             foreach (KeyValuePair<string, List<string>> item in xml_xsd_files)
             {
                 if (item.Key.Length > 1 && item.Value.Count() > 1)
                 {
-                    xsd_path = item.Value.First();
+                    xsd_path = item.Value.First(); // El primer path del array de string corresponde al del archivo xsd
+                    // Recorremos todos los path (menos el primero que es el del archivo xsd) guardados en el item.Value que corresponden a los xml
                     foreach(string xml_path in item.Value.Skip(1))
                     {
                         textLog.Text += "Validando " + Path.GetFileName(xml_path) + " con " + item.Key + ".xsd\n";
-                        textLog.Text += "Validando " + xml_path + " con " + xsd_path + "\n";
+                        //textLog.Text += "Validando " + xml_path + " con " + xsd_path + "\n";
                         XmlSchemaSet schema = new XmlSchemaSet();
                         schema.Add("", xsd_path);
-                        XmlReader rd = XmlReader.Create(xml_path);
-                        XDocument doc = XDocument.Load(rd);
                         try
                         {
+                            XmlReader rd = XmlReader.Create(xml_path);
+                            XDocument doc = XDocument.Load(rd);
+                            // Intentamos validar los xml con su xsd correspondiente
                             doc.Validate(schema, null);
                             textLog.Text += "Se ha validado correctamente.\n";
                         }
-                        catch (XmlSchemaValidationException ex)
+                        catch (Exception ex)
                         {
                             textLog.Text += "Ha ocurrido un error en la validación.\n";
                             textLog.Text += "Detalles del error: " + ex.Message + "\n";
                         }
                         textLog.Text += "\n";
                     }
-                    
-                    
                 }
             }
         }
@@ -142,6 +151,7 @@ namespace Validator_XML
                 textRep.Text = dialog.FileName;
             }
         }
+        // Método para eliminar las filas no duplicadas de un xml
         private bool Drop_No_Duplicated(string key_name, string path_file, string output_file)
         {
             XmlReader rd = XmlReader.Create(path_file);
