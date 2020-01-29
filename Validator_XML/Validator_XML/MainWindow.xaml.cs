@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Forms;
 using System.Xml;
@@ -40,72 +41,94 @@ namespace Validator_XML
                 textXSD.Text = dialog.SelectedPath;
             }
         }
-        static bool validation = false;
+        //static bool validation = false;
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+
+            if (textXML.Text.Length == 0)
+            {
+                textLog.Text = "Seleccione una carpeta con archivos en formato compatible (.xml)\n";
+                textLog.Text += "la carpeta de ficheros XML no se ha seleccionado\n";
+                return;
+            }
+            if (textXSD.Text.Length == 0)
+            {
+                textLog.Text = "Seleccione una carpeta con archivos en formato compatible (.xsd)\n";
+                textLog.Text += "la carpeta de ficheros XSD no se ha seleccionado\n";
+                return;
+            }
+            //Obtenemos los archivos xml y xsd de todos los directorios incluidos en los path almacenados en textXML.Text y textXSD.Text
             string[] xml_files = Directory.GetFiles(textXML.Text, "*.xml", SearchOption.AllDirectories);
             string[] xsd_files = Directory.GetFiles(textXSD.Text, "*.xsd", SearchOption.AllDirectories);
-            if (xml_files.Length == 0 || xsd_files.Length == 0)
+            if (xml_files.Length == 0)
             {
-                if (xml_files.Length == 0)
-                {
-                    textLog.Text = "Seleccione una carpeta con archivos en formato compatible (.xml)\n";
-                    textLog.Text += "la carpeta " + textXML.Text + " no tiene ficheros XML.\n";
+                textLog.Text = "Seleccione una carpeta con archivos en formato compatible (.xml)\n";
+                textLog.Text += "la carpeta " + textXML.Text + " no tiene ficheros XML.\n";
+                return;
+            }
+            if (xsd_files.Length == 0)
+            {
+                textLog.Text = "Seleccione una carpeta con archivos en formato compatible (.xsd)\n";
+                textLog.Text += "la carpeta " + textXSD.Text + " no tiene ficheros XSD.\n";
+                return;
+            }
+            string xml_filename, xml_filename_without_digits;
+            var pair = new { xml = "xml", xsd = "xsd" };
+            textLog.Text = "";
+            var xml_xsd_files = xsd_files.ToDictionary(x => Path.GetFileNameWithoutExtension(x), x => new List<string>(){x});
+            foreach (string xml_path in xml_files)
+            {
+                xml_filename = Path.GetFileNameWithoutExtension(xml_path);
+                xml_filename_without_digits = "";
+                // Comprobamos si el nombre del xml tiene digitos
+                if (xml_filename.Any(char.IsDigit)){
+                    // Quitamos los digitos del nombre del xml para emparejarlo con su xsd correspondiente
+                    xml_filename_without_digits = Regex.Replace(xml_filename, @"[\d-]", string.Empty);
+                    // Otra forma de quitar los digitos del string (no sé cual será más rápida)
+                    //char[] numbers = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+                    //int index_of_number = xml_filename.IndexOfAny(numbers);
+                    //textLog.Text += "index es " + index_of_number + "  xml_filename: "+ xml_filename.Substring(0,index_of_number)+ "\n";
                 }
-                if (xsd_files.Length == 0)
+                // Si el diccionario tiene una key (xsd) con el mismo nombre que el xml (xml_filename_without_digits) entonces podemos añadir el xml
+                if (xml_filename_without_digits.Length>1 && xml_xsd_files.ContainsKey(xml_filename_without_digits))
                 {
-                    textLog.Text = "Seleccione una carpeta con archivos en formato compatible (.xsd)\n";
-                    textLog.Text += "la carpeta " + textXSD.Text + " no tiene ficheros XSD.\n";
+                    xml_xsd_files[xml_filename_without_digits].Add(xml_path);
+                    textLog.Text += "Archivo xml añadido para ser validado: " + xml_filename + "\n";
+                }
+                else
+                {
+                    textLog.Text += "El archivo: " + xml_filename_without_digits + " ("+ xml_filename + ") no tiene un archivo xsd con el mismo nombre para ser validado.\n";
                 }
             }
-            else
-            {
-                if (validation == false)
-                {
-                    string xml_filename, xsd_filename;
-                    var pair = new { xml = "xml", xsd = "xsd" };
-                    textLog.Text = "";
-                    var xml_xsd_files = new Dictionary<string, Tuple<string, string>>();
-                    foreach (string xml_path in xml_files)
-                    {
-                        xml_filename = Path.GetFileNameWithoutExtension(xml_path);
-                        if (xml_filename.Contains("000000"))
-                        {
 
-                        }
-                        xml_xsd_files.Add(xml_filename, new Tuple<string, string>(xml_path, ""));
-                    }
-                    foreach (string xsd_path in xsd_files)
+            string xsd_path;
+            foreach (KeyValuePair<string, List<string>> item in xml_xsd_files)
+            {
+                if (item.Key.Length > 1 && item.Value.Count() > 1)
+                {
+                    xsd_path = item.Value.First();
+                    foreach(string xml_path in item.Value.Skip(1))
                     {
-                        xsd_filename = Path.GetFileNameWithoutExtension(xsd_path);
-                        if (xml_xsd_files.ContainsKey(xsd_filename))
+                        textLog.Text += "Validando " + Path.GetFileName(xml_path) + " con " + item.Key + ".xsd\n";
+                        textLog.Text += "Validando " + xml_path + " con " + xsd_path + "\n";
+                        XmlSchemaSet schema = new XmlSchemaSet();
+                        schema.Add("", xsd_path);
+                        XmlReader rd = XmlReader.Create(xml_path);
+                        XDocument doc = XDocument.Load(rd);
+                        try
                         {
-                            xml_xsd_files[xsd_filename] = new Tuple<string, string>(xml_xsd_files[xsd_filename].Item1, xsd_path);
+                            doc.Validate(schema, null);
+                            textLog.Text += "Se ha validado correctamente.\n";
                         }
-                    }
-                    foreach (string key in xml_xsd_files.Keys)
-                    {
-                        if (xml_xsd_files[key].Item1.Length > 1 && xml_xsd_files[key].Item2.Length > 1)
+                        catch (XmlSchemaValidationException ex)
                         {
-                            textLog.Text += "Validando " + key + ".xml con " + key + ".xsd\n";
-                            XmlSchemaSet schema = new XmlSchemaSet();
-                            schema.Add("", xml_xsd_files[key].Item2);
-                            XmlReader rd = XmlReader.Create(xml_xsd_files[key].Item1);
-                            XDocument doc = XDocument.Load(rd);
-                            try
-                            {
-                                doc.Validate(schema, null);
-                                textLog.Text += "Se ha validado correctamente.\n";
-                            }
-                            catch (XmlSchemaValidationException ex)
-                            {
-                                textLog.Text += "Ha ocurrido un error en la validación.\n";
-                                textLog.Text += "Detalles del error: " + ex.Message + "\n";
-                            }
-                            textLog.Text += "\n";
+                            textLog.Text += "Ha ocurrido un error en la validación.\n";
+                            textLog.Text += "Detalles del error: " + ex.Message + "\n";
                         }
+                        textLog.Text += "\n";
                     }
-                    validation = true;
+                    
+                    
                 }
             }
         }
