@@ -29,7 +29,9 @@
                 </Grid>
             </TabItem>
             <TabItem Header="TabItem">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+                    <Button x:Name="btnFindCSV" Content="Seleccionar Fichero CSV" HorizontalAlignment="Left" Margin="23,36,0,0" VerticalAlignment="Top" Width="156"/>
+                </Grid>
             </TabItem>
         </TabControl>
     </Grid>
