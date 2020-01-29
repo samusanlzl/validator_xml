@@ -1,25 +1,21 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\slinan\\Documents\\GitHub\\validator_xml\\Validator_XML\\Validator_XML\\Validator_XML.csproj": {}
+    "C:\\Users\\mjurena\\Desktop\\validator_xml-master\\validator_xml\\Validator_XML\\Validator_XML\\Validator_XML.csproj": {}
   },
   "projects": {
-    "C:\\Users\\slinan\\Documents\\GitHub\\validator_xml\\Validator_XML\\Validator_XML\\Validator_XML.csproj": {
+    "C:\\Users\\mjurena\\Desktop\\validator_xml-master\\validator_xml\\Validator_XML\\Validator_XML\\Validator_XML.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\slinan\\Documents\\GitHub\\validator_xml\\Validator_XML\\Validator_XML\\Validator_XML.csproj",
+        "projectUniqueName": "C:\\Users\\mjurena\\Desktop\\validator_xml-master\\validator_xml\\Validator_XML\\Validator_XML\\Validator_XML.csproj",
         "projectName": "Validator_XML",
-        "projectPath": "C:\\Users\\slinan\\Documents\\GitHub\\validator_xml\\Validator_XML\\Validator_XML\\Validator_XML.csproj",
-        "packagesPath": "C:\\Users\\slinan\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\slinan\\Documents\\GitHub\\validator_xml\\Validator_XML\\Validator_XML\\obj\\",
+        "projectPath": "C:\\Users\\mjurena\\Desktop\\validator_xml-master\\validator_xml\\Validator_XML\\Validator_XML\\Validator_XML.csproj",
+        "packagesPath": "C:\\Users\\mjurena\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\mjurena\\Desktop\\validator_xml-master\\validator_xml\\Validator_XML\\Validator_XML\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\"
-        ],
         "configFilePaths": [
-          "C:\\Users\\slinan\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\mjurena\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.0"
@@ -51,6 +47,24 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[3.0.1, 3.0.1]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[3.0.2, 3.0.2]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[3.0.0, 3.0.0]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[3.0.0, 3.0.0]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"

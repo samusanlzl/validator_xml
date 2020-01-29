@@ -181,7 +181,7 @@ namespace Validator_XML
             }
             catch (Exception ex)
             {
-                textLog.Text += "Seleccione un archivo compatible, el archivo " + Path.GetFileName(textRep.Text) + " no es compatible.\n";
+                //textLog.Text += "Seleccione un archivo compatible, el archivo " + Path.GetFileName(textRep.Text) + " no es compatible.\n";
                 textLog.Text += "Error: " + ex.Message + "\n";
                 return false;
             }
@@ -196,14 +196,14 @@ namespace Validator_XML
             if (path_file.Length > 1) {
                 if (Path.GetExtension(path_file) == ".xsl")
                 {
-                    textLog.Text = "Seleccione un archivo compatible, el archivo " + Path.GetFileName(textRep.Text) + " no es compatible.\n";
+                    textLogCSV.Text = "Seleccione un archivo compatible, el archivo " + Path.GetFileName(path_file) + " no es compatible.\n";
                 }
                 else
                 {
-                    string output_file = "C:/Users/slopez/Documents/archivo.xml";
+                    string output_file = "C:/Users/"+ Environment.UserName +"/Documents/archivo.xml";
                     if (Drop_No_Duplicated(key_name, path_file, output_file))
                     {
-                        textLog.Text +="Se han eliminado las filas no repetidas\n";
+                        textLogCSV.Text +="Se han eliminado las filas no repetidas\n";
                     }
                 }
             }
@@ -214,6 +214,87 @@ namespace Validator_XML
             watch.Stop();
             var elapsedMs = watch.ElapsedMilliseconds;
             textLog.Text += "Tiempo de ejecución: "+ elapsedMs + " milisegundos\n";
+        }
+
+        private void btnFindCSV_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new OpenFileDialog();
+            DialogResult result = dialog.ShowDialog();
+            if (result == System.Windows.Forms.DialogResult.OK)
+            {
+                textCSV.Text = dialog.FileName;
+            }
+            
+        }
+
+        private void btnValidarCSV_Click(object sender, RoutedEventArgs e)
+        {
+            var watch = System.Diagnostics.Stopwatch.StartNew();
+            // the code that you want to measure comes here
+            string path_file = textCSV.Text;
+            string key_name = textCampoCSV.Text;
+            if (path_file.Length > 1)
+            {
+                if (Path.GetExtension(path_file) == ".csv")
+                {
+                    textLog.Text = "Seleccione un archivo compatible, el archivo " + Path.GetFileName(textRep.Text) + " no es compatible.\n";
+                }
+                else
+                {
+                    string output_file = "C:/Users/" + Environment.UserName + "/Documents/archivo.xml";
+                    if (Drop_No_DuplicatedCSV(key_name, path_file, output_file))
+                    {
+                        textLog.Text += "Se han eliminado las filas no repetidas\n";
+                    }
+                }
+            }
+            else
+            {
+                textLog.Text = "Seleccione un archivo para poder comprobar los repetidos\n";
+            }
+            watch.Stop();
+            var elapsedMs = watch.ElapsedMilliseconds;
+            textLog.Text += "Tiempo de ejecución: " + elapsedMs + " milisegundos\n";
+        }
+
+        private bool Drop_No_DuplicatedCSV(string key_name, string path_file, string output_file)
+        {
+            try
+            {
+                string[] lines = File.ReadAllLines(System.IO.Path.ChangeExtension(path_file, ".csv"));
+
+                string[] campos = lines[0].Split(';');
+                int posCampo = -1;
+
+                for (int i = 0; i < campos.Length; i++)
+                {
+                    if (campos[i] == key_name)
+                    {
+                        posCampo = i;
+                    }
+                }
+
+                if(posCampo == -1)
+                {
+                    textLogCSV.Text += "No se ha encontrado el campo " + key_name + "\n";
+                }
+                else
+                {
+                    foreach (string l in lines)
+                    {
+                        string[] col = l.Split(';');
+                        //TO DO
+                    }
+                }
+
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                textLog.Text += "Error: " + ex.Message + "\n";
+                return false;
+            }
         }
     }
 }

@@ -11,26 +11,36 @@
         <TabControl Margin="0,0,0,0">
             <TabItem Header="TabItem">
                 <Grid Background="#FFE5E5E5">
-                    <Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="154" Margin="52,305,0,0" VerticalAlignment="Top" Width="292"/>
-                    <Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="209" Margin="52,50,0,0" VerticalAlignment="Top" Width="292"/>
-                    <Button Content="Seleccionar carpeta XSDs" HorizontalAlignment="Left" Margin="75,145,0,0" VerticalAlignment="Top" Click="Button_Click_xsd" Width="157"/>
-                    <TextBox IsReadOnly="True" HorizontalAlignment="Left" Height="40                  " Margin="75,89,0,0" x:Name="textXML" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" />
-                    <Button Content="Seleccionar carpeta XMLs" HorizontalAlignment="Left" Margin="75,64,0,0" VerticalAlignment="Top" Click="Button_Click_xml" Height="20" Width="157"/>
-                    <Button Content="Validar" HorizontalAlignment="Left" Margin="75,226,0,0" VerticalAlignment="Top" Click="Button_Click" Height="20" Width="100"/>
-                    <TextBox IsReadOnly="True" HorizontalAlignment="Left" x:Name="textXSD" Margin="75,170,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" Height="40                  "/>
-                    <TextBox IsReadOnly="True" Tag="Log" HorizontalAlignment="Left" Margin="385,50,0,0" x:Name="textLog" TextWrapping="Wrap" VerticalAlignment="Top" Width="404" Height="409" Grid.ColumnSpan="2"/>
-                    <TextBox IsReadOnly="True" HorizontalAlignment="Left" Margin="75,340,0,0" x:Name="textRep" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" Height="40                  "/>
-                    <Button Content="Seleccionar archivo" HorizontalAlignment="Left" Margin="75,315,0,0" VerticalAlignment="Top" Height="20" Width="127" Click="Button_Click_File_Rep"/>
-                    <Button Content="Comprobar repetidos" HorizontalAlignment="Left" Margin="75,406,0,0" VerticalAlignment="Top" Height="20" Width="157" Click="Button_Click_Find_Rep"/>
-                    <TextBox HorizontalAlignment="Left" Margin="75,431,0,0" Text="campoid" x:Name="textKey" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="20"/>
-                    <Label Content="Log:" HorizontalAlignment="Left" Margin="385,22,0,0" VerticalAlignment="Top" Width="100" Grid.ColumnSpan="2"/>
-                    <Label Content="Comprobar valores repetidos" HorizontalAlignment="Left" Margin="54,274,0,0" VerticalAlignment="Top" Width="178"/>
-                    <Label Content="Validar documentos" HorizontalAlignment="Left" Margin="52,22,0,0" VerticalAlignment="Top" Width="178"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30*"/>
+                        <ColumnDefinition Width="44*"/>
+                        <ColumnDefinition Width="777*"/>
+                    </Grid.ColumnDefinitions>
+                    <Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="154" Margin="22,305,0,0" VerticalAlignment="Top" Width="292" Grid.Column="1" Grid.ColumnSpan="2"/>
+                    <Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="209" Margin="22,50,0,0" VerticalAlignment="Top" Width="292" Grid.Column="1" Grid.ColumnSpan="2"/>
+                    <Button Content="Seleccionar carpeta XSDs" HorizontalAlignment="Left" Margin="1,145,0,0" VerticalAlignment="Top" Click="Button_Click_xsd" Width="157" Grid.Column="2"/>
+                    <TextBox IsReadOnly="True" HorizontalAlignment="Left" Height="40                  " Margin="1,89,0,0" x:Name="textXML" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" Grid.Column="2" />
+                    <Button Content="Seleccionar carpeta XMLs" HorizontalAlignment="Left" Margin="1,64,0,0" VerticalAlignment="Top" Click="Button_Click_xml" Height="20" Width="157" Grid.Column="2"/>
+                    <Button Content="Validar" HorizontalAlignment="Left" Margin="1,226,0,0" VerticalAlignment="Top" Click="Button_Click" Height="20" Width="100" Grid.Column="2"/>
+                    <TextBox IsReadOnly="True" HorizontalAlignment="Left" x:Name="textXSD" Margin="1,170,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" Height="40                  " Grid.Column="2"/>
+                    <TextBox IsReadOnly="True" Tag="Log" HorizontalAlignment="Left" Margin="311,50,0,0" x:Name="textLog" TextWrapping="Wrap" VerticalAlignment="Top" Width="404" Height="409" Grid.Column="2"/>
+                    <TextBox IsReadOnly="True" HorizontalAlignment="Left" Margin="1,340,0,0" x:Name="textRep" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" Height="40                  " Grid.Column="2"/>
+                    <Button Content="Seleccionar archivo" HorizontalAlignment="Left" Margin="1,315,0,0" VerticalAlignment="Top" Height="20" Width="127" Click="Button_Click_File_Rep" Grid.Column="2"/>
+                    <Button Content="Comprobar repetidos" HorizontalAlignment="Left" Margin="1,406,0,0" VerticalAlignment="Top" Height="20" Width="157" Click="Button_Click_Find_Rep" Grid.Column="2"/>
+                    <TextBox HorizontalAlignment="Left" Margin="1,431,0,0" Text="campoid" x:Name="textKey" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="20" Grid.Column="2"/>
+                    <Label Content="Log:" HorizontalAlignment="Left" Margin="311,22,0,0" VerticalAlignment="Top" Width="100" Grid.Column="2"/>
+                    <Label Content="Comprobar valores repetidos" HorizontalAlignment="Left" Margin="24,274,0,0" VerticalAlignment="Top" Width="178" Grid.Column="1" Grid.ColumnSpan="2"/>
+                    <Label Content="Validar documentos" HorizontalAlignment="Left" Margin="22,22,0,0" VerticalAlignment="Top" Width="178" Grid.Column="1" Grid.ColumnSpan="2"/>
                 </Grid>
             </TabItem>
             <TabItem Header="TabItem">
                 <Grid Background="#FFE5E5E5">
-                    <Button x:Name="btnFindCSV" Content="Seleccionar Fichero CSV" HorizontalAlignment="Left" Margin="23,36,0,0" VerticalAlignment="Top" Width="156"/>
+                    <Button x:Name="btnFindCSV" Content="Seleccionar Fichero CSV" HorizontalAlignment="Left" Margin="23,36,0,0" VerticalAlignment="Top" Width="156" Click="btnFindCSV_Click"/>
+                    <TextBox x:Name="textCSV" IsReadOnly="True" HorizontalAlignment="Left" Margin="23,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="236"/>
+                    <TextBox x:Name="textLogCSV" HorizontalAlignment="Left" Margin="398,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="332" Height="310"/>
+                    <TextBox x:Name="textCampoCSV" HorizontalAlignment="Left" Margin="139,103,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    <Label Content="Campo a validar" HorizontalAlignment="Left" Margin="23,99,0,0" VerticalAlignment="Top"/>
+                    <Button x:Name="btnValidarCSV" Content="Validar" HorizontalAlignment="Left" Margin="23,143,0,0" VerticalAlignment="Top" Height="31" Width="63" Click="btnValidarCSV_Click"/>
                 </Grid>
             </TabItem>
         </TabControl>
