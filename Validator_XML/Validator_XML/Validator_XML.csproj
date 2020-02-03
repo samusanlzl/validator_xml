@@ -7,4 +7,12 @@
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="axesor logo 2.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="axesor logo 2.png" />
+  </ItemGroup>
+
 </Project>

@@ -290,22 +290,6 @@ namespace Validator_XML
 
             textLogCSV.SelectionStart = textLogCSV.Text.Length;
             //textLogCSV.ScrollToCaret(); //scrolls to the bottom of textbox*/
-
-
-
-            string[] a = new string[4];
-
-            a[0] = "1";
-            a[1] = "2";
-
-            string texto = "";
-            Parallel.For(0, 20, (i) =>
-            {
-                Thread.Sleep(1000);
-                texto += i + " , ";
-                Thread.Sleep(1000);
-            });
-            textLogCSV.Text = texto;
         }
 
         private string Prueba()

@@ -5,74 +5,133 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Validator_XML"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600
-        " Width="857">
+        Title="MainWindow" Height="800
+        " Width="1200">
 
     <Window.Resources>
-        <Style x:Key = "myButtonStyle" TargetType = "Button">
-            <Setter Property = "Height" Value = "30" />
-            <Setter Property = "Width" Value = "80" />
-            <Setter Property = "Foreground" Value = "White" />
-            <Setter Property = "Background" Value = "DodgerBlue" />
+        <Style TargetType = "Button">
+            <Setter Property = "Foreground" Value = "#FF1D1D1D" />
+            <Setter Property = "Background" >
+                <Setter.Value>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFB3EAFF"/>
+                        <GradientStop Color="#FF80DCFF" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property = "BorderThickness" Value = "1" />
+            <Setter Property = "BorderBrush" Value = "#FF5D5D5D" />
             <Setter Property = "FontSize" Value = "16" />
-            <Setter Property = "Margin" Value = "10" />
-            <Setter Property = "BorderThickness" Value = "2" />
-            <Setter Property = "BorderBrush" Value = "White" />
+            <Setter Property="FontWeight" Value="Light" />
+        </Style>
+
+        <Style TargetType = "TextBox">
+            <Setter Property = "Foreground" Value = "Black" />
+            <Setter Property = "Background" >
+                <Setter.Value>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="White"/>
+                        <GradientStop Color="#FFE6FFE9" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property = "BorderThickness" Value = "1" />
+            <Setter Property = "BorderBrush" Value = "#FF838383" />
+            <Setter Property = "FontSize" Value = "12" />
+            <Setter Property="FontWeight" Value="Medium" />
+        </Style>
+        <Style TargetType="TabItem">
+            <Setter Property = "FontSize" Value = "20" />
+            <Setter Property = "Foreground" Value = "#FF3A3A3A" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabItem">
+                        <Border Name="Border" BorderThickness="1,1,1,0" BorderBrush="Gainsboro" CornerRadius="4,4,0,0" Margin="2,0">
+                            <ContentPresenter x:Name="ContentSite"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        ContentSource="Header"
+                                        Margin="10,2"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="#FFF0FCFF" />
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="False">
+                                <Setter TargetName="Border" Property="Background" Value="#EEAFFFFF" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType = "Label">
+            <Setter Property = "Foreground" Value = "#FF5A5A5A" />
+            <Setter Property = "BorderThickness" Value = "0" />
+            <Setter Property = "BorderBrush" Value = "DarkSlateBlue" />
+            <Setter Property = "FontSize" Value = "16" />
+            <Setter Property="FontWeight" Value="Bold" />
+        </Style>
+        <Style TargetType = "Grid">
+            <Setter Property = "Background" >
+                <Setter.Value>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFF1FCFF" Offset="0"/>
+                        <GradientStop Color="#FFADEFFD" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType = "Border">
+            <Setter Property = "Background" Value = "#FFCCFDFF" />
+            <Setter Property = "BorderBrush" Value = "#FF424242" />
+            <Setter Property = "BorderThickness" Value = "0.3,0.3,0.3,0.3" />
         </Style>
     </Window.Resources>
 
-    <Grid Background="#FF54C0AF">
+    <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="149*"/>
-            <ColumnDefinition Width="26*"/>
-            <ColumnDefinition Width="682*"/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <TabControl Background="White" BorderBrush="White" Grid.ColumnSpan="3">
-            <TabItem Header="TabItem">
+        <Image HorizontalAlignment="Left" Height="100" Margin="30,10,0,0" VerticalAlignment="Top" Width="340" Source="axesor logo 2.png"/>
+        <TabControl Background="#FFEAFFFF" BorderThickness="0" Margin="0,111,0,0">
+            <TabItem Header="XML">
                 <TabItem.Background>
                     <LinearGradientBrush EndPoint="0,1">
                         <GradientStop Color="#FFF0F0F0"/>
                         <GradientStop Color="White" Offset="1"/>
                     </LinearGradientBrush>
                 </TabItem.Background>
-                <Grid Background="#FFE5E5E5">
+                <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="30*"/>
-                        <ColumnDefinition Width="44*"/>
-                        <ColumnDefinition Width="16*"/>
-                        <ColumnDefinition Width="761*"/>
+                        <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="154" Margin="22,305,0,0" VerticalAlignment="Top" Width="292" Grid.Column="1" Grid.ColumnSpan="3"/>
-                    <Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="209" Margin="22,50,0,0" VerticalAlignment="Top" Width="292" Grid.Column="1" Grid.ColumnSpan="3"/>
-                    <Button Content="Seleccionar carpeta XSDs" HorizontalAlignment="Left" Margin="1,145,0,0" VerticalAlignment="Top" Click="Button_Click_xsd" Width="157" Grid.Column="2" Grid.ColumnSpan="2"/>
-                    <TextBox IsReadOnly="True" HorizontalAlignment="Left" Height="40                  " Margin="1,89,0,0" x:Name="textXML" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" Grid.Column="2" Grid.ColumnSpan="2" />
-                    <Button Content="Seleccionar carpeta XMLs" HorizontalAlignment="Left" Margin="1,64,0,0" VerticalAlignment="Top" Click="Button_Click_xml" Height="20" Width="157" Grid.Column="2" Grid.ColumnSpan="2"/>
-                    <Button Content="Validar" HorizontalAlignment="Left" Margin="1,226,0,0" VerticalAlignment="Top" Click="Button_Click" Height="20" Width="100" Grid.Column="2" Grid.ColumnSpan="2"/>
-                    <TextBox IsReadOnly="True" HorizontalAlignment="Left" x:Name="textXSD" Margin="1,170,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" Height="40                  " Grid.Column="2" Grid.ColumnSpan="2"/>
-                    <TextBox IsReadOnly="True" Tag="Log" HorizontalAlignment="Left" Margin="295,50,0,0" x:Name="textLog" TextWrapping="Wrap" VerticalAlignment="Top" Width="404" Height="409" Grid.Column="3"/>
-                    <TextBox IsReadOnly="True" HorizontalAlignment="Left" Margin="1,340,0,0" x:Name="textRep" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" Height="40                  " Grid.Column="2" Grid.ColumnSpan="2"/>
-                    <Button Content="Seleccionar archivo" HorizontalAlignment="Left" Margin="1,315,0,0" VerticalAlignment="Top" Height="20" Width="127" Click="Button_Click_File_Rep" Grid.Column="2" Grid.ColumnSpan="2"/>
-                    <Button Content="Comprobar repetidos" HorizontalAlignment="Left" Margin="1,406,0,0" VerticalAlignment="Top" Height="20" Width="157" Click="Button_Click_Find_Rep" Grid.Column="2" Grid.ColumnSpan="2"/>
-                    <TextBox HorizontalAlignment="Left" Margin="1,431,0,0" Text="campoid" x:Name="textKey" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="20" Grid.Column="2" Grid.ColumnSpan="2"/>
-                    <Label Content="Log:" HorizontalAlignment="Left" Margin="295,22,0,0" VerticalAlignment="Top" Width="100" Grid.Column="3"/>
-                    <Label Content="Comprobar valores repetidos" HorizontalAlignment="Left" Margin="24,274,0,0" VerticalAlignment="Top" Width="178" Grid.Column="1" Grid.ColumnSpan="3"/>
-                    <Label Content="Validar documentos" HorizontalAlignment="Left" Margin="22,22,0,0" VerticalAlignment="Top" Width="178" Grid.Column="1" Grid.ColumnSpan="3"/>
+                    <Border HorizontalAlignment="Left" Height="154" Margin="52,305,0,0" VerticalAlignment="Top" Width="292"/>
+                    <Border  HorizontalAlignment="Left" Height="209" Margin="52,50,0,0" VerticalAlignment="Top" Width="292"/>
+                    <Button Content="Seleccionar carpeta XSDs" HorizontalAlignment="Left" Margin="74,143,0,0" VerticalAlignment="Top" Click="Button_Click_xsd" Width="196"/>
+                    <TextBox IsReadOnly="True" HorizontalAlignment="Left" Height="40" Margin="75,96,0,0" x:Name="textXML" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" />
+                    <Button Content="Seleccionar carpeta XMLs" HorizontalAlignment="Left" Margin="75,64,0,0" VerticalAlignment="Top" Click="Button_Click_xml" Width="195"/>
+                    <Button Content="Validar" HorizontalAlignment="Left" Margin="75,226,0,0" VerticalAlignment="Top" Click="Button_Click" Width="100"/>
+                    <TextBox IsReadOnly="True" HorizontalAlignment="Left" x:Name="textXSD" Margin="75,175,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" Height="40                  "/>
+                    <TextBox IsReadOnly="True" Tag="Log" HorizontalAlignment="Left" Margin="385,50,0,0" x:Name="textLog" TextWrapping="Wrap" VerticalAlignment="Top" Width="732" Height="409" RenderTransformOrigin="1,0.5"/>
+                    <TextBox IsReadOnly="True" HorizontalAlignment="Left" Margin="75,347,0,0" x:Name="textRep" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" Height="40                  "/>
+                    <Button Content="Seleccionar archivo" HorizontalAlignment="Left" Margin="74,315,0,0" VerticalAlignment="Top" Click="Button_Click_File_Rep" Width="162"/>
+                    <Button  Content="Comprobar repetidos" HorizontalAlignment="Left" Margin="75,399,0,0" VerticalAlignment="Top" Click="Button_Click_Find_Rep" Width="155"/>
+                    <TextBox HorizontalAlignment="Left" Margin="75,431,0,0" Text="campoid" x:Name="textKey" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="20"/>
+                    <Label Content="Log:" HorizontalAlignment="Left" Margin="385,22,0,0" VerticalAlignment="Top" Width="100"/>
+                    <Label Content="Comprobar valores repetidos" HorizontalAlignment="Left" Margin="54,274,0,0" VerticalAlignment="Top" Width="235"/>
+                    <Label Content="Validar documentos" HorizontalAlignment="Left" Margin="52,22,0,0" VerticalAlignment="Top" Width="178"/>
+
                 </Grid>
             </TabItem>
             <TabItem Header="TabItem">
                 <Grid>
-                    <Grid.Background>
-                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <GradientStop Color="#FF002280"/>
-                            <GradientStop Color="#FF15BEF1" Offset="1"/>
-                        </LinearGradientBrush>
-                    </Grid.Background>
-                    <Button x:Name="btnFindCSV" Content="Seleccionar Fichero CSV" Style="{StaticResource myButtonStyle}" Margin="23,36,748,490"/>
-                    <TextBox x:Name="textCSV" IsReadOnly="True" HorizontalAlignment="Left" Margin="23,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="236" Background="#FFD5ECFF"/>
-                    <TextBox x:Name="textLogCSV" HorizontalAlignment="Left" Margin="398,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="332" Height="310" Background="#FFC7E6FF"/>
-                    <TextBox x:Name="textCampoCSV" HorizontalAlignment="Left" Margin="139,103,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Background="#FFCFE9FF"/>
-                    <Label Content="Campo a validar" HorizontalAlignment="Left" Margin="23,99,0,0" VerticalAlignment="Top" Foreground="White"/>
-                    <Button x:Name="btnValidarCSV" Content="Validar"  Style="{StaticResource myButtonStyle}" Margin="23,171,748,355" />
+                    <Button x:Name="btnFindCSV" Content="Seleccionar Fichero CSV"  Margin="23,18,848,565"/>
+                    <TextBox x:Name="textCSV" IsReadOnly="True" HorizontalAlignment="Left" Margin="23,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="236" />
+                    <TextBox x:Name="textLogCSV" HorizontalAlignment="Left" Margin="525,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="332" Height="310" />
+                    <TextBox x:Name="textCampoCSV" HorizontalAlignment="Left" Margin="185,106,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    <Label Content="Campo a validar" HorizontalAlignment="Left" Margin="23,99,0,0" VerticalAlignment="Top" />
+                    <Button x:Name="btnValidarCSV" Content="Validar" Margin="23,350,954,229" />
                 </Grid>
             </TabItem>
         </TabControl>
